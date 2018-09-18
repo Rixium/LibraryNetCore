@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,21 +21,29 @@ namespace Library {
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-            if (env.IsDevelopment()) {
-                app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
-            }
-            else {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
+            if (env.IsDevelopment())
+                SetupDevelopment(app);
+            else
+                SetupProduction(app);
             app.UseStaticFiles();
+            app.UseMvc(ConfigureRoutes());
+        }
 
-            app.UseMvc(routes => {
+        private static void SetupProduction(IApplicationBuilder app) {
+            app.UseExceptionHandler("/Home/Error");
+        }
+
+        private static void SetupDevelopment(IApplicationBuilder app) {
+            app.UseBrowserLink();
+            app.UseDeveloperExceptionPage();
+        }
+
+        private static Action<IRouteBuilder> ConfigureRoutes() {
+            return routes => {
                 routes.MapRoute(
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
-            });
+            };
         }
 
     }
