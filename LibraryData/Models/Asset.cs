@@ -2,7 +2,7 @@
 
 namespace LibraryData.Models {
 
-    public abstract class Asset {
+    public class Asset {
 
         public int Id { get; set; }
 
@@ -13,6 +13,7 @@ namespace LibraryData.Models {
         public int Year { get; set; }
 
         [Required]
+        public int StatusId { get; set; }
         public virtual Status Status { get; set; }
 
         [Required]
@@ -22,6 +23,7 @@ namespace LibraryData.Models {
 
         public int NumberOfCopies { get; set; }
 
+        public int BranchId { get; set; }
         public virtual Branch Branch { get; set; }
 
     }

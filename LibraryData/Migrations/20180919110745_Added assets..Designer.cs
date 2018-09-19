@@ -4,14 +4,16 @@ using LibraryData.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryData.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20180919110745_Added assets.")]
+    partial class Addedassets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +27,7 @@ namespace LibraryData.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BranchId");
+                    b.Property<int?>("BranchId");
 
                     b.Property<decimal>("Cost");
 
@@ -264,8 +266,7 @@ namespace LibraryData.Migrations
                 {
                     b.HasOne("LibraryData.Models.Branch", "Branch")
                         .WithMany("Assets")
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("BranchId");
 
                     b.HasOne("LibraryData.Models.Status", "Status")
                         .WithMany()

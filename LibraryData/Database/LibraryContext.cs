@@ -1,4 +1,7 @@
-﻿using LibraryData.Models;
+﻿using System;
+using System.Linq;
+
+using LibraryData.Models;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +21,7 @@ namespace LibraryData.Database {
         public DbSet<LibraryCard> LibraryCards { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Hold> Holds { get; set; }
+        public DbSet<Asset> Assets { get; set; }
 
     }
 

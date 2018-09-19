@@ -1,5 +1,7 @@
 ﻿using System;
 
+using LibraryData;
+using LibraryServices.Assets;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -19,6 +21,8 @@ namespace Library {
 
         public void ConfigureServices(IServiceCollection services) {
             services.AddMvc();
+            services.AddSingleton(Configuration);
+            services.AddScoped<IAsset, AssetService>();
             services.AddDbContext<LibraryData.Database.LibraryContext>(options 
                 => options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
         }
